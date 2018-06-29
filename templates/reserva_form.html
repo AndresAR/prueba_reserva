@@ -1,0 +1,47 @@
+{% extends 'layout/default.html' %}
+
+{% block content %}
+<!-- comentario de lo que sea -->
+{% load static from staticfiles %}
+
+    
+<section class="content-header">
+	<div class="container-fluid">
+		<div class="row mb-2">
+			<div class="col-sm-6">
+				<h1>Reservación</h1>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="content">
+  	<!-- Default box -->
+	<div class="card">
+		<div class="card-header">
+			<h3 class="card-title">Ingrese Reservación</h3>
+			<div class="card-tools">
+				<button type="button" class="btn btn-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+				<i class="fa fa-minus"></i></button>
+				<button type="button" class="btn btn-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+				<i class="fa fa-times"></i></button>
+			</div>
+		</div>
+		<div class="card-body">
+			<form method="post">
+				{% csrf_token %}
+            	{{form.as_p}}
+
+		</div>
+		<div class="card-footer">
+			<input type="submit" class= "btn btn-success pull-right" value="Enviar">
+			</form>
+		</div>
+	</div>
+</section>
+<script src="{% static "js/bootstrap.js" %}"></script>
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+<script type="text/javascript">
+	$('#fecha').datepicker();
+</script>
+
+{% endblock%}

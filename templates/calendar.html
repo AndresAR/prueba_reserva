@@ -1,0 +1,62 @@
+{% extends 'layout/default.html' %}
+
+{% block content %}
+{% load static from staticfiles %}
+
+<div id='calendar'></div>
+<style>
+
+    #calendar {
+        max-width: 1300px;
+        margin: 0 auto;
+    }
+
+</style>
+
+
+<script src="{% static "js/jquery-3.2.1.min.js" %}"></script>
+<script src="{% static "js/moment.min.js" %}"></script>
+<script src="{% static "js/fullcalendar.min.js" %}"></script>
+<script src="{% static "js/jquery.qtip.js" %}"></script>
+<script>
+
+	$(document).ready(function() {
+		
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay,listWeek',
+				
+			},
+
+			defaultDate: '2017-04-12',
+			navLinks: true, // can click day/week names to navigate views
+			editable: true,
+			eventLimit: true, // allow "more" link when too many events
+			events: [
+
+				{% for i in events %}
+                {
+                    title: 'Sala: {{ i.sala}}. {{ i.sala.ubicacion }}',
+                    start: '{{ i.fecha|date:"Y-m-d" }}T{{ i.hora_inicio }}',
+                    end: '{{ i.fecha|date:"Y-m-d" }}T{{ i.hora_termino }}', 
+                    url:  '/test/reservacion/{{ i.id }}'
+
+                },
+                {% endfor %}
+			],
+            eventRender: function(event, element) {
+                element.qtip({
+                    content: event.ubicacion
+                });
+            }
+		});
+		
+	});
+
+</script>
+
+{% endblock %}
+
+
